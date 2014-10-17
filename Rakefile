@@ -2,6 +2,7 @@ require 'rake'
 require 'rspec/core/rake_task'
 require_relative 'db/config'
 require_relative 'lib/students_importer'
+require 'faker'
 
 
 desc "create the database"
@@ -12,6 +13,19 @@ end
 desc "drop the database"
 task "db:drop" do
   rm_f 'db/ar-students.sqlite3'
+end
+
+desc "seed the file with some test data"
+task "db:popteachers" do
+	require_relative "app.rb"
+	9.times do
+		teacher = Teacher.new
+		teacher.name = Faker::Name.name
+		teacher.email  = Faker::Internet.email
+		teacher.phone = Faker::PhoneNumber.cell_phone
+
+		teacher.save
+	end
 end
 
 desc "migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."

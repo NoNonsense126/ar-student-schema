@@ -18,7 +18,7 @@ class Student < ActiveRecord::Base
 
 	def validate_phone_number
 		unless phone.downcase.gsub(/[a-z]/, "").length >= 10
-			errors.add(:phone, "Need a valid phone number")
+			errors.add(:phone, "Need a valid phone number")	
 		end
 	end
 
